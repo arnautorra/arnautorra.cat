@@ -56,7 +56,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   color: #fff; opacity: 0; transform: translateY(6px);
   transition: opacity .3s, transform .3s; text-shadow: 0 1px 8px rgba(0,0,0,.4);
 }
-.project-title { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; color: #ffffff; text-shadow: none; }
+.project-title { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: #ffffff; text-shadow: none; }
 .project-sub   { font-size: 10px; letter-spacing: .07em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); text-shadow: none; transition-delay: .04s; }
 .project-cell:hover .project-title,
 .project-cell:hover .project-sub { opacity: 1; transform: translateY(0); }
