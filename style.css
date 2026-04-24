@@ -3,8 +3,8 @@
 :root {
   --bg: rgb(249,249,249);
   --fg: #111;
-  --gap: 25px;
-  --pad-grid: 150px;
+  --gap: 18px;
+  --pad-grid: 80px;
   --pad-header: 28px;
   --header-h: 52px;
   --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -56,8 +56,8 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   color: #fff; opacity: 0; transform: translateY(6px);
   transition: opacity .3s, transform .3s; text-shadow: 0 1px 8px rgba(0,0,0,.4);
 }
-.project-title { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
-.project-sub   { font-size: 10px; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.75); transition-delay: .04s; }
+.project-title { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; color: #111; text-shadow: none; }
+.project-sub   { font-size: 10px; letter-spacing: .07em; text-transform: uppercase; color: rgba(0,0,0,.55); text-shadow: none; transition-delay: .04s; }
 .project-cell:hover .project-title,
 .project-cell:hover .project-sub { opacity: 1; transform: translateY(0); }
 
@@ -101,10 +101,11 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 #lb-cursor {
   position: fixed; pointer-events: none; z-index: 9999;
   transform: translate(-50%,-50%); display: none;
-  mix-blend-mode: difference; filter: contrast(999);
 }
 #lb-cursor.show { display: block; }
-#lb-cursor svg  { width: 48px; height: 48px; fill: none; stroke: white; stroke-width: 10; stroke-linecap: square; stroke-linejoin: miter; }
+#lb-cursor svg  { width: 48px; height: 48px; fill: none; stroke-width: 10; stroke-linecap: square; stroke-linejoin: miter; }
+#lb-cursor.on-dark svg  { stroke: white; }
+#lb-cursor.on-light svg { stroke: black; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) { :root { --pad-grid: 40px; } }

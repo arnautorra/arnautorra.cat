@@ -1,5 +1,6 @@
 const PROJECTS = [
   {
+    slug: 'start-up-banc-sabadell',
     title: 'Start-Up Banc Sabadell', studio: 'Bogom',
     cover: 'projectes/2602_Sabadell/Sabadelll-00.jpg',
     photos: [
@@ -35,6 +36,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'escola-pere-lliscart',
     title: 'Escola Pere Lliscart', studio: 'Bogom',
     cover: 'projectes/2602_PereLliscart/PereLliscart-1.jpg',
     photos: [
@@ -57,6 +59,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'parcs-i-jardins',
     title: 'Parcs i Jardins', studio: 'Bogom',
     cover: 'projectes/2510_Parcsijardins/Entenca-00.jpg',
     photos: [
@@ -73,6 +76,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: '3-xemeneies',
     title: '3 Xemeneies', studio: 'Bogom',
     cover: 'projectes/2510_3Xemeneies/3xemeneies00.jpg',
     photos: [
@@ -97,6 +101,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'cripta-guell',
     title: 'Cripta Güell', studio: 'Antoni Gaudí',
     cover: 'projectes/2505_CriptaGuell/portada.jpg',
     photos: [
@@ -116,6 +121,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'districte-firal-de-bolonia',
     title: 'Districte Firal de Bolonia', studio: 'Kenzo Tange',
     cover: 'projectes/2502_SanDonatoBolonia/portada.jpg',
     photos: [
@@ -129,6 +135,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'pluja-fiorentina',
     title: 'Pluja Fiorentina', studio: '',
     cover: 'projectes/2502_PlujaFlorentina/portada.jpg',
     photos: [
@@ -141,6 +148,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'esglesia-autopista-del-sol',
     title: "Església de l'Autopista del Sol", studio: 'Giovanni Michelucci',
     cover: 'projectes/2502_IglesiaAutopistaSol/portada.jpg',
     photos: [
@@ -156,6 +164,7 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'lisboa',
     title: 'Lisboa', studio: 'Viatge',
     cover: 'projectes/2407_Lisboa/portada.jpg',
     photos: [

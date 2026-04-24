@@ -38,6 +38,15 @@ function setMeta() {
   lbCounter.textContent = `${curPhoto + 1} / ${p.photos.length}`;
 }
 
+// Preload an image, returns a Promise
+function preload(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = img.onerror = () => resolve();
+    img.src = src;
+  });
+}
+
 function openLightbox(pi, ph) {
   curProj = pi; curPhoto = ph; busy = false;
   imgs.forEach(img => { img.style.transition = 'none'; img.style.transform = 'translateX(0)'; img.style.opacity = '0'; });
@@ -47,6 +56,10 @@ function openLightbox(pi, ph) {
   setMeta();
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // URL routing
+  const slug = PROJECTS[curProj].slug;
+  history.pushState({ slug }, '', `/${slug}`);
 }
 
 function closeLightbox() {
@@ -55,41 +68,63 @@ function closeLightbox() {
   lbCursor.classList.remove('show');
   cursor.classList.remove('hidden');
   busy = false;
+  history.pushState({}, '', '/');
 }
 
 function navigate(dir) {
   if (busy) return;
   busy = true;
 
-  const photos   = PROJECTS[curProj].photos;
+  const photos    = PROJECTS[curProj].photos;
   const nextPhoto = (curPhoto + dir + photos.length) % photos.length;
-  const current  = imgs[activeSlot];
-  const next     = imgs[1 - activeSlot];
+  const current   = imgs[activeSlot];
+  const next      = imgs[1 - activeSlot];
   const incomingX = dir === 1 ? '100vw' : '-100vw';
   const exitX     = dir === 1 ? '-100vw' : '100vw';
 
-  next.style.transition = 'none';
-  next.style.transform  = `translateX(${incomingX})`;
-  next.style.opacity    = '1';
-  next.src = photos[nextPhoto];
+  // Preload before animating
+  preload(photos[nextPhoto]).then(() => {
+    next.style.transition = 'none';
+    next.style.transform  = `translateX(${incomingX})`;
+    next.style.opacity    = '1';
+    next.src = photos[nextPhoto];
 
-  next.getBoundingClientRect(); // force reflow
+    next.getBoundingClientRect(); // force reflow
 
-  const easing = `transform ${DURATION}ms cubic-bezier(.65,0,.35,1)`;
-  current.style.transition = easing;
-  next.style.transition    = easing;
-  current.style.transform  = `translateX(${exitX})`;
-  next.style.transform     = 'translateX(0)';
+    const easing = `transform ${DURATION}ms cubic-bezier(.65,0,.35,1)`;
+    current.style.transition = easing;
+    next.style.transition    = easing;
+    current.style.transform  = `translateX(${exitX})`;
+    next.style.transform     = 'translateX(0)';
 
-  setTimeout(() => {
-    current.style.opacity    = '0';
-    current.style.transition = 'none';
-    current.style.transform  = 'translateX(0)';
-    curPhoto    = nextPhoto;
-    activeSlot  = 1 - activeSlot;
-    setMeta();
+    setTimeout(() => {
+      current.style.opacity    = '0';
+      current.style.transition = 'none';
+      current.style.transform  = 'translateX(0)';
+      curPhoto   = nextPhoto;
+      activeSlot = 1 - activeSlot;
+      setMeta();
+      busy = false;
+    }, DURATION);
+  });
+}
+
+// Handle browser back button
+window.addEventListener('popstate', () => {
+  if (lb.classList.contains('open')) {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbCursor.classList.remove('show');
+    cursor.classList.remove('hidden');
     busy = false;
-  }, DURATION);
+  }
+});
+
+// Open project if URL matches on page load
+const initSlug = location.pathname.replace('/', '');
+if (initSlug) {
+  const idx = PROJECTS.findIndex(p => p.slug === initSlug);
+  if (idx !== -1) openLightbox(idx, 0);
 }
 
 lbClose.addEventListener('click', closeLightbox);
@@ -108,13 +143,33 @@ let tx = 0;
 lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
 lb.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) navigate(dx < 0 ? 1 : -1); });
 
-// ── Arrow cursor ──
+// ── Arrow cursor — binary black/white based on pixel brightness ──
+const canvas = document.createElement('canvas');
+const ctx    = canvas.getContext('2d', { willReadFrequently: true });
+canvas.width = canvas.height = 1;
+
+function updateArrowColor(x, y) {
+  try {
+    ctx.drawImage(imgs[activeSlot], x - imgs[activeSlot].getBoundingClientRect().left,
+      y - imgs[activeSlot].getBoundingClientRect().top, 1, 1, 0, 0, 1, 1);
+    const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    lbCursor.classList.toggle('on-dark',  brightness < 128);
+    lbCursor.classList.toggle('on-light', brightness >= 128);
+  } catch {
+    // cross-origin fallback: default to dark arrow
+    lbCursor.classList.add('on-light');
+    lbCursor.classList.remove('on-dark');
+  }
+}
+
 lbStage.addEventListener('mousemove', e => {
   lbCursor.style.left = e.clientX + 'px';
   lbCursor.style.top  = e.clientY + 'px';
   lbArrow.innerHTML = e.clientX < window.innerWidth / 2
     ? '<polyline points="30,10 10,24 30,38"/>'
     : '<polyline points="18,10 38,24 18,38"/>';
+  updateArrowColor(e.clientX, e.clientY);
 });
 lbStage.addEventListener('mouseenter', () => { lbCursor.classList.add('show'); cursor.classList.add('hidden'); });
 lbStage.addEventListener('mouseleave', () => { lbCursor.classList.remove('show'); cursor.classList.remove('hidden'); });
