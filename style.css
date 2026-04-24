@@ -3,8 +3,8 @@
 :root {
   --bg: rgb(249,249,249);
   --fg: #111;
-  --gap: 18px;
-  --pad-grid: 80px;
+  --gap: 25px;
+  --pad-grid: 160px;
   --pad-header: 28px;
   --header-h: 52px;
   --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
