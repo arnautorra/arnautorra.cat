@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arnau Torra</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="lb-cursor"><svg id="lb-arrow" viewBox="0 0 48 48"></svg></div>
+
+<header>
+  <a class="h-left" href="#projectes">Projectes</a>
+  <a class="h-mid"  href="#projectes">Arnau Torra</a>
+  <a class="h-right" href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
+</header>
+
+<main id="projectes"><div class="grid" id="grid"></div></main>
+
+<div id="lightbox">
+  <div id="lb-header">
+    <div id="lb-info">
+      <span id="lb-info-title"></span>
+      <span id="lb-info-sub"></span>
+    </div>
+    <a class="h-mid" href="#projectes" id="lb-home">Arnau Torra</a>
+    <a class="h-right" href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
+  </div>
+  <div id="lb-stage">
+    <div id="lb-left-zone"></div>
+    <div id="lb-right-zone"></div>
+    <img class="lb-slide" id="lb-img-a" src="" alt="">
+    <img class="lb-slide" id="lb-img-b" src="" alt="">
+  </div>
+  <div id="lb-footer">
+    <button id="lb-close">✕</button>
+    <span id="lb-counter"></span>
+  </div>
+</div>
+
+<script src="projects.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
