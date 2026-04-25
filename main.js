@@ -212,32 +212,12 @@ lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
 lb.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) navigate(dx < 0 ? 1 : -1); });
 
 // ── Arrow cursor — binary black/white based on pixel brightness ──
-const canvas = document.createElement('canvas');
-const ctx    = canvas.getContext('2d', { willReadFrequently: true });
-canvas.width = canvas.height = 1;
-
-function updateArrowColor(x, y) {
-  try {
-    ctx.drawImage(imgs[activeSlot], x - imgs[activeSlot].getBoundingClientRect().left,
-      y - imgs[activeSlot].getBoundingClientRect().top, 1, 1, 0, 0, 1, 1);
-    const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    lbCursor.classList.toggle('on-dark',  brightness < 128);
-    lbCursor.classList.toggle('on-light', brightness >= 128);
-  } catch {
-    // cross-origin fallback: default to dark arrow
-    lbCursor.classList.add('on-light');
-    lbCursor.classList.remove('on-dark');
-  }
-}
-
 lbStage.addEventListener('mousemove', e => {
   lbCursor.style.left = e.clientX + 'px';
   lbCursor.style.top  = e.clientY + 'px';
   lbArrow.innerHTML = e.clientX < window.innerWidth / 2
     ? '<polyline points="30,10 10,24 30,38"/>'
     : '<polyline points="18,10 38,24 18,38"/>';
-  updateArrowColor(e.clientX, e.clientY);
 });
 lbStage.addEventListener('mouseenter', () => { lbCursor.classList.add('show'); cursor.classList.add('hidden'); });
 lbStage.addEventListener('mouseleave', () => { lbCursor.classList.remove('show'); cursor.classList.remove('hidden'); });
@@ -252,3 +232,5 @@ document.querySelectorAll('a, button, .project-cell').forEach(el => {
 // ── Protecció imatges ──
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+// Bloqueig tàctil (press llarg en mòbil)
+document.addEventListener('touchstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); }, { passive: false });

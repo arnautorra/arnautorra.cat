@@ -100,9 +100,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   transform: translate(-50%,-50%); display: none;
 }
 #lb-cursor.show { display: block; }
-#lb-cursor svg  { width: 48px; height: 48px; fill: none; stroke-width: 10; stroke-linecap: square; stroke-linejoin: miter; }
-#lb-cursor.on-dark svg  { stroke: white; }
-#lb-cursor.on-light svg { stroke: black; }
+#lb-cursor svg  { width: 48px; height: 48px; fill: none; stroke: #111; stroke-width: 10; stroke-linecap: square; stroke-linejoin: miter; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) { :root { --pad-grid: 40px; } }
@@ -217,8 +215,11 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   #lb-footer {
     position: relative;
     bottom: auto; left: auto; right: auto;
-    flex-direction: column; align-items: center;
-    gap: 16px; padding: 24px 20px 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    padding: 16px 20px 32px;
   }
 
   /* Correu a baix */
@@ -230,10 +231,11 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   /* Fletxa tornar a dalt */
   #lb-scroll-top {
     display: flex; align-items: center; justify-content: center;
-    width: 40px; height: 40px;
-    border: 1px solid #ccc; border-radius: 50%;
+    width: auto; height: auto;
+    border: none; border-radius: 0;
     background: none; color: var(--fg);
     font-size: 18px; line-height: 1;
+    padding: 0;
   }
 
   /* Capçal grid mòbil */
