@@ -112,6 +112,7 @@ function openLightbox(pi, ph) {
   renderThumbs();
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
+  if (!isTouchDevice()) cursor.classList.add('hidden');
   if (!isTouchDevice()) {
     history.pushState({ slug: PROJECTS[curProj].slug }, '', `/${PROJECTS[curProj].slug}`);
   }
@@ -293,4 +294,4 @@ document.querySelectorAll('a, button, .project-cell').forEach(el => {
 // ── Protecció imatges ──
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
-document.addEventListener('touchstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); }, { passive: false });
+document.addEventListener('touchstart', e => { if (e.target.tagName === 'IMG' && !isTouchDevice()) e.preventDefault(); }, { passive: false });
