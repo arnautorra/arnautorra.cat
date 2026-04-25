@@ -178,8 +178,6 @@ const PROJECTS = [
       'projectes/2407_Lisboa/08.jpg',
       'projectes/2407_Lisboa/09.jpg',
       'projectes/2407_Lisboa/10.jpg',
-      'projectes/2407_Lisboa/11.jpg',
-      'projectes/2407_Lisboa/12.jpg',
     ]
   },
 ];
