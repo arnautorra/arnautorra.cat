@@ -6,49 +6,49 @@
 <title>Contacte — Arnau Torra</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* ── Contacte ── */
+  body, html { height: 100%; overflow: hidden; }
+
   .contacte-wrap {
-    min-height: 100vh;
+    position: fixed;
+    top: var(--header-h); left: 0; right: 0; bottom: 0;
     display: flex;
-    align-items: center;
-    padding: calc(var(--header-h) + 40px) var(--pad-header) 60px;
-    gap: 60px;
+    align-items: stretch;
   }
 
   .contacte-foto {
-    flex: 1 1 45%;
-    max-width: 520px;
+    flex: 0 0 55%;
+    overflow: hidden;
   }
   .contacte-foto img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
   }
 
   .contacte-text {
-    flex: 1 1 45%;
+    flex: 0 0 45%;
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    max-width: 440px;
+    justify-content: center;
+    padding: 0 60px;
+    gap: 32px;
   }
 
   .contacte-text p {
-    font-size: 14px;
-    line-height: 1.75;
-    color: #333;
+    font-size: 13px;
+    line-height: 1.85;
+    color: #444;
     font-weight: 300;
+    max-width: 380px;
   }
 
   .contacte-correu {
-    font-size: 12px;
-    letter-spacing: .08em;
+    font-size: 11px;
+    letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--fg);
     text-decoration: none;
     border-bottom: 1px solid #ccc;
-    padding-bottom: 2px;
+    padding-bottom: 3px;
     display: inline-block;
     transition: border-color .2s;
   }
@@ -56,14 +56,15 @@
 
   /* Mòbil */
   @media (hover:none) {
+    body, html { overflow: auto; }
     .contacte-wrap {
+      position: static;
       flex-direction: column;
-      padding-left: 20px;
-      padding-right: 20px;
+      padding: 24px 20px 48px;
       gap: 32px;
     }
-    .contacte-foto { max-width: 100%; }
-    .contacte-text { max-width: 100%; }
+    .contacte-foto { flex: none; height: 60vw; }
+    .contacte-text { flex: none; padding: 0; }
   }
 </style>
 </head>
@@ -74,7 +75,7 @@
 <header id="header-grid">
   <a class="h-left" href="/">Projectes</a>
   <a class="h-mid" href="/">Arnau Torra</a>
-  <a class="h-right active" href="/contacte">Contacte</a>
+  <a class="h-right" href="/contacte">CONTACTE</a>
 </header>
 
 <main>
@@ -84,8 +85,8 @@
     </div>
     <div class="contacte-text">
       <p>
-        <!-- EDITA AQUÍ EL TEU TEXT DE PRESENTACIÓ -->
-        El teu text de presentació aquí.
+        Soc fotògraf especialitzat en arquitectura i espai construït. El meu treball busca revelar la qualitat de la llum, la matèria i el temps en els edificis — des de l'obra recent fins al patrimoni consolidat.<br><br>
+        Col·laboro habitualment amb arquitectes, despatxos i institucions culturals per documentar projectes amb rigor i sensibilitat. Si tens un projecte en ment, escriu-me.
       </p>
       <a class="contacte-correu" href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
     </div>
@@ -93,7 +94,6 @@
 </main>
 
 <script>
-  // Cursor
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
     cursor.style.left    = e.clientX + 'px';

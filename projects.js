@@ -37,7 +37,6 @@ const PROJECTS = [
       'projectes/2510_Parcsijardins/Entenca-6.jpg',
       'projectes/2510_Parcsijardins/Entenca-7.jpg',
       'projectes/2510_Parcsijardins/Entenca-8.jpg',
-      'projectes/2510_Parcsijardins/Entenca-9.jpg',
       'projectes/2510_Parcsijardins/Entenca-10.jpg',
     ]
   },
