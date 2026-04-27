@@ -123,7 +123,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   transform:translate(-50%,-50%); display:none;
 }
 #lb-cursor.show { display:block; }
-#lb-cursor svg { width:18px; height:18px; fill:none; stroke:#111; stroke-width:3; stroke-linecap:square; stroke-linejoin:miter; }
+#lb-cursor svg { width:32px; height:32px; fill:#111; stroke:none; }
 
 /* ── MÒBIL ── */
 @media (hover:none) {

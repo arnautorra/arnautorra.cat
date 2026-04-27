@@ -274,10 +274,10 @@ lbStage.addEventListener('mousemove', e => {
   lbCursor.style.left = e.clientX + 'px';
   lbCursor.style.top  = e.clientY + 'px';
   lbArrow.innerHTML = e.clientX < window.innerWidth / 2
-    ? '<polyline points="30,10 10,24 30,38"/>'
-    : '<polyline points="18,10 38,24 18,38"/>';
+    ? '<polygon points="22,6 6,16 22,26"/>'
+    : '<polygon points="10,6 26,16 10,26"/>';
 });
-lbStage.addEventListener('mouseenter', () => { lbCursor.classList.add('show'); cursor.classList.add('hidden'); });
+lbStage.addEventListener('mouseenter', () => { lbCursor.classList.add('show'); cursor.classList.add('hidden'); cursor.style.opacity = '0'; });
 lbStage.addEventListener('mouseleave', () => { lbCursor.classList.remove('show'); cursor.classList.remove('hidden'); });
 
 // ── Global cursor ──
