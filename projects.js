@@ -85,7 +85,7 @@ const PROJECTS = [
   {
     slug: 'escola-pere-lliscart',
     title: 'Escola Pere Lliscart', studio: 'Bogom',
-    cover: 'projectes/2602_PereLliscart/PereLliscart-1.jpg',
+    cover: 'projectes/2602_PereLliscart/PereLliscart-00.jpg',
     photos: [
       'projectes/2602_PereLliscart/PereLliscart-01.jpg',
       'projectes/2602_PereLliscart/PereLliscart-02.jpg',
