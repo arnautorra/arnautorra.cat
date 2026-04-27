@@ -281,10 +281,14 @@ lbStage.addEventListener('mouseenter', () => { lbCursor.classList.add('show'); c
 lbStage.addEventListener('mouseleave', () => { lbCursor.classList.remove('show'); cursor.classList.remove('hidden'); });
 
 // ── Global cursor ──
+let overStage = false;
+lbStage.addEventListener('mouseenter', () => { overStage = true; });
+lbStage.addEventListener('mouseleave', () => { overStage = false; });
+
 document.addEventListener('mousemove', e => {
-  cursor.style.left    = e.clientX + 'px';
-  cursor.style.top     = e.clientY + 'px';
-  cursor.style.opacity = '1';
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+  if (!overStage) cursor.style.opacity = '1';
 });
 document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
 document.querySelectorAll('a, button, .project-cell').forEach(el => {
