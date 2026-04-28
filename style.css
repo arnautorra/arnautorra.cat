@@ -177,10 +177,10 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   #header-grid .h-mid { position:static; transform:none; font-size:13px; }
 
   #footer-grid {
-    display:flex; justify-content:center;
-    padding:20px 0 32px;
+    display:flex; justify-content:space-between;
+    padding:20px 16px 32px;
   }
-  #footer-grid a { font-size:11px; color:#888; text-decoration:none; }
+  #footer-grid a { font-size:11px; color:#888; text-decoration:none; letter-spacing:.05em; }
 
   main { padding-left:16px; padding-right:16px; }
   .grid { grid-template-columns:repeat(2,1fr); }
