@@ -80,8 +80,13 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 .project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,.7); }
 
 /* ── Lightbox ── */
-#lightbox { position:fixed; inset:0; background:var(--bg); z-index:500; display:none; overflow:hidden; }
+#lightbox { position:fixed; inset:0; background:var(--bg); z-index:500; display:none; }
 #lightbox.open { display:block; }
+
+/* Desktop: overflow hidden per evitar scroll indesitjat */
+@media (hover:hover) {
+  #lightbox { overflow:hidden; }
+}
 
 /* Header projecte */
 #lb-header {
