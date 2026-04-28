@@ -80,7 +80,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 .project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,.7); }
 
 /* ── Lightbox ── */
-#lightbox { position:fixed; inset:0; background:var(--bg); z-index:500; display:none; }
+#lightbox { position:fixed; inset:0; background:var(--bg); z-index:500; display:none; overflow:hidden; }
 #lightbox.open { display:block; }
 
 /* Header projecte */
@@ -187,12 +187,14 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 
   /* FIX mòbil: lightbox com a scroll vertical */
   #lightbox {
-    overflow-y: auto;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    display:none;
-    flex-direction:column;
+    display: none;
+    flex-direction: column;
   }
-  #lightbox.open { display:flex; }
+  #lightbox.open {
+    display: flex;
+  }
 
   #lb-header {
     position:sticky; top:0;
@@ -209,7 +211,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
     position:relative; top:auto; bottom:auto; left:auto; right:auto;
     height:auto; overflow:visible;
     flex-direction:column; align-items:stretch; justify-content:flex-start;
-    gap:0; padding:0;
+    gap:12px; padding:12px 0;
     flex:1;
   }
 

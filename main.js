@@ -116,8 +116,9 @@ function openLightbox(pi, ph) {
   setMeta();
   renderThumbs();
   lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
-
+  if (!isTouchDevice()) {
+    document.body.style.overflow = 'hidden';
+  }
   // FIX mòbil: reset scroll al top
   if (isTouchDevice()) {
     lb.scrollTop = 0;
@@ -130,7 +131,9 @@ function openLightbox(pi, ph) {
 
 function closeLightbox() {
   lb.classList.remove('open');
-  document.body.style.overflow = '';
+  if (!isTouchDevice()) {
+    document.body.style.overflow = '';
+  }
   lbCursor.classList.remove('show');
   overStage = false;
   cursor.classList.remove('hidden');
