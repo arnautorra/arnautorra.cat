@@ -255,7 +255,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   }
 
   /* Permet scroll vertical sobre les imatges del lightbox */
-  #lb-stage img {
+  #lb-stage img, #lb-stage, #lightbox {
     touch-action: pan-y;
   }
 
