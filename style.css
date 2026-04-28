@@ -209,9 +209,21 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   }
   #lb-header .h-right { display:none; }
   #lb-header .h-mid { position:static; transform:none; font-size:13px; }
-  #lb-info { min-width:0; flex:1; flex-direction:row; align-items:center; justify-content:flex-start; gap:4px; }
-  #lb-info-texts { display:flex; flex-direction:column; gap:1px; text-align:left; }
-  #lb-info-sep { display:none; }
+  #lb-info {
+    min-width:0;
+    flex:1;
+    flex-direction:row;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:4px;
+  }
+  #lb-info-texts {
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    text-align:left;
+  }
+  #lb-info-sep { display:none !important; }
   #lb-back { display:flex; }
 
   /* FIX mòbil: stage és un flux vertical de totes les fotos */
