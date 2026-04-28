@@ -113,7 +113,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 #lb-stage {
   position:absolute; top:var(--header-h); bottom:calc(var(--footer-h) + var(--thumb-h));
   left:0; right:0; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
+  display:flex; align-items:flex-start; justify-content:center;
 }
 #lb-stage.zoomed { overflow:visible; }
 #lb-stage.zoomed #lb-left-zone,
@@ -209,8 +209,8 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   }
   #lb-header .h-right { display:none; }
   #lb-header .h-mid { position:static; transform:none; font-size:13px; }
-  #lb-info { min-width:0; flex:1; flex-direction:row; align-items:center; gap:4px; }
-  #lb-info-texts { display:flex; flex-direction:column; gap:1px; }
+  #lb-info { min-width:0; flex:1; flex-direction:row; align-items:center; justify-content:flex-start; gap:4px; }
+  #lb-info-texts { display:flex; flex-direction:column; gap:1px; text-align:left; }
   #lb-info-sep { display:none; }
   #lb-back { display:flex; }
 
