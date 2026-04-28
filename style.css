@@ -64,7 +64,8 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 .project-cell:hover .project-overlay { background:rgba(0,0,0,.08); }
 
 /* FIX: project-info ara és visible sempre, fora del clip */
-.project-info { padding: 8px 2px 14px; display:flex; flex-direction:column; gap:2px; }
+.project-info { padding: 8px 2px 14px; display:flex; flex-direction:column; gap:2px; opacity:0; transition:opacity .3s; }
+.project-cell:hover .project-info { opacity: 1; }
 .project-title { font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; color:#111; }
 .project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:#888; }
 

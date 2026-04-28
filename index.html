@@ -1,241 +1,78 @@
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arnau Torra</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-:root {
-  --bg: rgb(249,249,249);
-  --fg: #111;
-  --gap: 18px;
-  --pad-grid: 80px;
-  --pad-header: 28px;
-  --header-h: 52px;
-  --thumb-h: 72px;
-  --footer-h: 48px;
-  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+<div id="cursor"></div>
+<div id="lb-cursor"><svg id="lb-arrow" viewBox="0 0 36 36"></svg></div>
 
-html, body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 13px; min-height: 100vh; }
+<!-- HEADER GRID -->
+<header id="header-grid">
+  <a class="h-left" href="/">Projectes</a>
+  <a class="h-mid" href="/">Arnau Torra</a>
+  <a class="h-right" href="/contacte.html">CONTACTE</a>
+</header>
 
-/* ── Cursor ── */
-#cursor {
-  position: fixed; width: 12px; height: 12px;
-  background: #111; border-radius: 50%;
-  pointer-events: none; transform: translate(-50%,-50%);
-  transition: width .2s, height .2s; z-index: 9999;
-}
-#cursor.hover  { width: 18px; height: 18px; }
-#cursor.hidden { opacity: 0; }
+<!-- FOOTER GRID (mòbil) -->
+<div id="footer-grid">
+  <a href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
+</div>
 
-/* ── Tipografia compartida ── */
-.h-left  { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; color: var(--fg); min-width: 160px; }
-.h-mid   { position: absolute; left: 50%; transform: translateX(-50%); font-size: 15px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--fg); white-space: nowrap; }
-.h-right { font-size: 11px; text-align: right; text-decoration: none; color: var(--fg); min-width: 160px; }
+<main id="projectes"><div class="grid" id="grid"></div></main>
 
-/* ── Header grid ── */
-#header-grid {
-  position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--pad-header); z-index: 200; background: var(--bg);
-}
+<!-- LIGHTBOX -->
+<div id="lightbox">
 
-/* ── Footer grid (mòbil) ── */
-#footer-grid { display: none; }
+  <!-- HEADER PROJECTE -->
+  <div id="lb-header">
+    <div id="lb-info">
+      <!-- FIX: botó ‹ per tornar enrere -->
+      <button id="lb-back">‹ <span id="lb-back-label">Projectes</span></button>
+      <span id="lb-info-title"></span>
+      <span id="lb-info-sep">—</span>
+      <span id="lb-info-sub"></span>
+    </div>
+    <a class="h-mid" id="lb-home" href="/">Arnau Torra</a>
+    <a class="h-right" href="/contacte.html">CONTACTE</a>
+  </div>
 
-/* ── Grid ── */
-main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-grid); }
-.grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--gap); }
+  <!-- STAGE -->
+  <div id="lb-stage">
+    <div id="lb-left-zone"></div>
+    <div id="lb-right-zone"></div>
+    <img class="lb-slide" id="lb-img-a" src="" alt="">
+    <img class="lb-slide" id="lb-img-b" src="" alt="">
+  </div>
 
-.project-cell {
-  position: relative; overflow: hidden; background: #e0e0e0;
-  opacity: 0; animation: fadeUp .5s cubic-bezier(.25,.1,.25,1) forwards;
-  cursor: pointer;
-}
-@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  <!-- FIX: FOOTER amb thumbnails centrades entre ✕ i comptador -->
+  <div id="lb-footer">
+    <button id="lb-close">✕</button>
+    <div id="lb-thumbs"></div>
+    <div id="lb-counter"></div>
+  </div>
 
-/* FIX: la imatge amb aspect-ratio fix, l'overlay i info fora del overflow:hidden */
-.project-cell-img-wrap {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-}
+  <!-- FOOTER PROJECTE MÒBIL -->
+  <div id="lb-footer-mobile">
+    <button id="lb-close-mobile">✕</button>
+    <button id="lb-scroll-top">↑</button>
+    <a href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
+  </div>
 
-.project-cell img { width:100%; height:100%; object-fit:cover; display:block; transition:filter .4s; }
-.project-cell:hover .project-cell-img-wrap img { filter:grayscale(100%) blur(1.5px) brightness(1.15); }
+</div>
 
-.project-overlay { position:absolute; inset:0; background:rgba(0,0,0,0); transition:background .35s; pointer-events:none; }
-.project-cell:hover .project-overlay { background:rgba(0,0,0,.08); }
-
-/* FIX: project-info ara és visible sempre, fora del clip */
-.project-info { padding: 8px 2px 14px; display:flex; flex-direction:column; gap:2px; opacity:0; transition:opacity .3s; }
-.project-cell:hover .project-info { opacity: 1; }
-.project-title { font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; color:#111; }
-.project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:#888; }
-
-/* ── Lightbox ── */
-#lightbox { position:fixed; inset:0; background:var(--bg); z-index:500; display:none; }
-#lightbox.open { display:block; }
-
-/* Header projecte */
-#lb-header {
-  position:absolute; top:0; left:0; right:0; height:var(--header-h);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 var(--pad-header); z-index:20; background:var(--bg);
-}
-
-/* FIX: botó de tornar enrere */
-#lb-back {
-  background: none; border: none; font-size: 18px; color: var(--fg);
-  line-height: 1; padding: 4px 8px 4px 0; display: flex; align-items: center;
-  gap: 6px; letter-spacing: .05em;
-}
-#lb-back-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
-
-#lb-info { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg); min-width:160px; display:flex; align-items:center; gap:6px; }
-#lb-info-title { font-weight:500; }
-#lb-info-sub   { color:#888; font-size:10px; }
-#lb-info-sep   { color:#ccc; font-size:10px; }
-
-/* Stage */
-#lb-stage {
-  position:absolute; top:var(--header-h); bottom:calc(var(--footer-h) + var(--thumb-h));
-  left:0; right:0; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
-}
-#lb-stage.zoomed { overflow:visible; }
-#lb-stage.zoomed #lb-left-zone,
-#lb-stage.zoomed #lb-right-zone { pointer-events:none; }
-
-.lb-slide {
-  position:absolute; max-width:90vw;
-  max-height:calc(100vh - var(--header-h) - var(--footer-h) - var(--thumb-h));
-  object-fit:contain; display:block; user-select:none; will-change:transform;
-}
-
-#lb-left-zone, #lb-right-zone { position:absolute; top:0; bottom:0; width:50%; z-index:10; }
-#lb-left-zone { left:0; } #lb-right-zone { right:0; }
-
-/* FIX: Thumbnails centrades, entre ✕ i comptador */
-#lb-footer {
-  position:absolute; bottom:0; left:0; right:0; height:var(--footer-h);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 var(--pad-header); z-index:20; background:var(--bg);
-}
-#lb-close { font-size: 22px; color: var(--fg); background: none; border: none; line-height: 1; padding: 4px; flex-shrink:0; }
-#lb-counter { font-size: 13px; letter-spacing: .08em; color: #999; flex-shrink:0; }
-
-/* FIX: thumbnails ara dins del footer, centrades */
-#lb-thumbs {
-  flex: 1;
-  display:flex; align-items:center; justify-content:center;
-  padding:0 12px; gap:6px;
-  overflow-x:auto; overflow-y:hidden;
-  scrollbar-width:none; height:100%;
-}
-#lb-thumbs::-webkit-scrollbar { display:none; }
-
-/* FIX: miniatures mantenen proporció original */
-.lb-thumb {
-  flex-shrink:0;
-  height:40px;
-  width:auto;
-  object-fit:cover;
-  opacity:.4; transition:opacity .2s;
-}
-.lb-thumb:hover, .lb-thumb.active { opacity:1; }
-
-/* Zona thumbnails (ordinador) — ara fusionada al footer */
-#lb-thumbs-wrap { display:none; } /* ja no s'usa */
-
-/* Footer projecte mòbil */
-#lb-footer-mobile { display:none; }
-
-/* Arrow cursor */
-#lb-cursor {
-  position:fixed; pointer-events:none; z-index:9999;
-  transform:translate(-50%,-50%); display:none;
-}
-#lb-cursor.show { display:block; }
-
-/* FIX: fletxa més gran */
-#lb-cursor svg { width:42px; height:42px; fill:#111; stroke:none; }
-
-/* ── MÒBIL ── */
-@media (hover:none) {
-  * { cursor: auto !important; }
-  #cursor, #lb-cursor { display:none !important; }
-
-  #header-grid { padding:0 16px; }
-  #header-grid .h-right { display:none; }
-  #header-grid .h-mid { position:static; transform:none; font-size:13px; }
-
-  #footer-grid {
-    display:flex; justify-content:center;
-    padding:20px 0 32px;
+<script>
+  const redirect = sessionStorage.getItem('redirect');
+  if (redirect) {
+    sessionStorage.removeItem('redirect');
+    history.replaceState(null, '', redirect);
   }
-  #footer-grid a { font-size:11px; color:#888; text-decoration:none; }
-
-  main { padding-left:16px; padding-right:16px; }
-  .grid { grid-template-columns:repeat(2,1fr); }
-
-  /* FIX mòbil: lightbox com a scroll vertical */
-  #lightbox {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    display:none;
-    flex-direction:column;
-  }
-  #lightbox.open { display:flex; }
-
-  #lb-header {
-    position:sticky; top:0;
-    padding:0 16px;
-    flex-shrink: 0;
-  }
-  #lb-header .h-right { display:none; }
-  #lb-header .h-mid { position:static; transform:none; font-size:13px; }
-  #lb-info { min-width:0; flex:1; flex-direction:row; align-items:center; }
-  #lb-back { display:flex; }
-
-  /* FIX mòbil: stage és un flux vertical de totes les fotos */
-  #lb-stage {
-    position:relative; top:auto; bottom:auto; left:auto; right:auto;
-    height:auto; overflow:visible;
-    flex-direction:column; align-items:stretch; justify-content:flex-start;
-    gap:0; padding:0;
-    flex:1;
-  }
-
-  /* FIX mòbil: cada foto ocupa l'amplada completa, alçada automàtica */
-  .lb-slide {
-    position:relative;
-    width:100% !important;
-    max-width:100% !important;
-    height:auto !important;
-    max-height:none !important;
-    transform:none !important;
-    transition:none !important;
-    display:block;
-    object-fit:contain;
-  }
-
-  /* Amaga els dos slots originals en mòbil */
-  #lb-img-a, #lb-img-b { display:none; }
-
-  #lb-left-zone, #lb-right-zone { display:none; }
-  #lb-thumbs { display:none; }
-  #lb-footer { display:none; }
-
-  #lb-footer-mobile {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 16px 32px;
-    flex-shrink: 0;
-  }
-  #lb-footer-mobile a { font-size:11px; color:#888; text-decoration:none; }
-  #lb-close-mobile { font-size:16px; color:var(--fg); background:none; border:none; line-height:1; padding:4px; }
-  #lb-scroll-top { font-size:18px; color:var(--fg); background:none; border:none; line-height:1; padding:4px; }
-
-  /* Oculta el botó de back en mòbil (ja hi ha close) */
-  #lb-back-label { display:none; }
-}
-
-/* ── Responsive ordinador ── */
-@media (min-width:901px) { :root { --pad-grid:80px; } }
-@media (max-width:900px) and (hover:hover) { :root { --pad-grid:40px; } }
+</script>
+<script src="projects.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
