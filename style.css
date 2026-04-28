@@ -50,7 +50,6 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 }
 @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-/* FIX: la imatge amb aspect-ratio fix, l'overlay i info fora del overflow:hidden */
 .project-cell-img-wrap {
   position: relative;
   overflow: hidden;
@@ -60,14 +59,25 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 .project-cell img { width:100%; height:100%; object-fit:cover; display:block; transition:filter .4s; }
 .project-cell:hover .project-cell-img-wrap img { filter:grayscale(100%) blur(1.5px) brightness(1.15); }
 
-.project-overlay { position:absolute; inset:0; background:rgba(0,0,0,0); transition:background .35s; pointer-events:none; }
-.project-cell:hover .project-overlay { background:rgba(0,0,0,.08); }
+/* Gradient fosc a la part inferior, només en hover */
+.project-overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 50%);
+  opacity: 0; transition: opacity .35s; pointer-events:none;
+}
+.project-cell:hover .project-overlay { opacity: 1; }
 
-/* FIX: project-info ara és visible sempre, fora del clip */
-.project-info { padding: 8px 2px 14px; display:flex; flex-direction:column; gap:2px; opacity:0; transition:opacity .3s; }
+/* Info sobre la imatge, a baix */
+.project-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 12px 10px;
+  display: flex; flex-direction: column; gap: 3px;
+  opacity: 0; transition: opacity .3s;
+  z-index: 2;
+}
 .project-cell:hover .project-info { opacity: 1; }
-.project-title { font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; color:#111; }
-.project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:#888; }
+.project-title { font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; color:#fff; }
+.project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,.7); }
 
 /* ── Lightbox ── */
 #lightbox { position:fixed; inset:0; background:var(--bg); z-index:500; display:none; }

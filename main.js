@@ -9,10 +9,10 @@ PROJECTS.forEach((p, i) => {
     <div class="project-cell-img-wrap">
       <img src="${p.cover}" alt="${p.title}" loading="lazy">
       <div class="project-overlay"></div>
-    </div>
-    <div class="project-info">
-      <span class="project-title">${p.title}</span>
-      <span class="project-sub">${p.studio}</span>
+      <div class="project-info">
+        <span class="project-title">${p.title}</span>
+        <span class="project-sub">${p.studio}</span>
+      </div>
     </div>`;
   c.addEventListener('click', () => openLightbox(i, 0));
   gridEl.appendChild(c);
