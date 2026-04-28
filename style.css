@@ -244,6 +244,17 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   #lb-close-mobile { font-size:16px; color:var(--fg); background:none; border:none; line-height:1; padding:4px; }
   #lb-scroll-top { font-size:18px; color:var(--fg); background:none; border:none; line-height:1; padding:4px; }
 
+  /* Protecció imatges mòbil sense bloquejar scroll */
+  img {
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  /* Permet scroll vertical sobre les imatges del lightbox */
+  #lb-stage img {
+    touch-action: pan-y;
+  }
+
   /* Oculta el botó de back en mòbil (ja hi ha close) */
   #lb-back-label { display:none; }
 }
