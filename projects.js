@@ -1,7 +1,7 @@
 const PROJECTS = [
   {
     slug: '3-xemeneies',
-    title: '3 Xemeneies', studio: 'Bogom',
+    title: '3 Xemeneies', studio: 'Bogom Arquitectura',
     cover: 'projectes/2510_3Xemeneies/3xemeneies00.jpg',
     photos: [
       'projectes/2510_3Xemeneies/3xemeneies00.jpg',
@@ -26,7 +26,7 @@ const PROJECTS = [
   },
   {
     slug: 'parcs-i-jardins',
-    title: 'Parcs i Jardins', studio: 'Bogom',
+    title: 'Parcs i Jardins', studio: 'Bogom Arquitectura',
     cover: 'projectes/2510_Parcsijardins/Entenca-00.jpg',
     photos: [
       'projectes/2510_Parcsijardins/Entenca-1.jpg',
@@ -82,7 +82,6 @@ const PROJECTS = [
       'projectes/2505_CriptaGuell/08.jpg',
       'projectes/2505_CriptaGuell/09.jpg',
       'projectes/2505_CriptaGuell/10.jpg',
-      'projectes/2505_CriptaGuell/11.jpg',
     ]
   },
   {
@@ -120,7 +119,7 @@ const PROJECTS = [
   },
   {
     slug: 'escola-pere-lliscart',
-    title: 'Escola Pere Lliscart', studio: 'Bogom',
+    title: 'Escola Pere Lliscart', studio: 'Bogom Arquitectura',
     cover: 'projectes/2602_PereLliscart/PereLliscart-01.jpg',
     photos: [
       'projectes/2602_PereLliscart/PereLliscart-01.jpg',
@@ -133,7 +132,7 @@ const PROJECTS = [
   },
   {
     slug: 'start-up-banc-sabadell',
-    title: 'Start-Up Banc Sabadell', studio: 'Bogom',
+    title: 'Start-Up Banc Sabadell', studio: 'Bogom Arquitectura',
     cover: 'projectes/2602_Sabadell/Sabadelll-00.jpg',
     photos: [
       'projectes/2602_Sabadell/Sabadelll-1.jpg',
