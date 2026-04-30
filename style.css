@@ -111,7 +111,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 
 /* Stage */
 #lb-stage {
-  position:absolute; top:var(--header-h); bottom:calc(var(--footer-h) + var(--thumb-h));
+  position:absolute; top:var(--header-h); bottom:calc(var(--footer-h));
   left:0; right:0; overflow:hidden;
   display:flex; align-items:flex-start; justify-content:center;
 }
