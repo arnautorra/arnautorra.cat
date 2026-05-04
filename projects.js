@@ -102,7 +102,7 @@ const PROJECTS = [
   },
   {
     slug: 'lisboa',
-    title: 'Lisboa', studio: 'Viatge',
+    title: 'Lisboa', studio: ' ',
     cover: 'projectes/2407_Lisboa/portada.jpg',
     photos: [
       'projectes/2407_Lisboa/01.jpg',
