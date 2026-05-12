@@ -41,7 +41,13 @@ html, body { background: var(--bg); color: var(--fg); font-family: var(--font); 
 
 /* ── Grid ── */
 main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-grid); }
-.grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--gap); }
+
+/* Grid fluid: passa de 3 → 2 → 1 columna automàticament segons l'amplada */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap);
+}
 
 .project-cell {
   position: relative; overflow: hidden; background: #e0e0e0;
@@ -158,7 +164,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 .lb-thumb:hover, .lb-thumb.active { opacity:1; }
 
 /* Zona thumbnails (ordinador) — ara fusionada al footer */
-#lb-thumbs-wrap { display:none; } /* ja no s'usa */
+#lb-thumbs-wrap { display:none; }
 
 /* Footer projecte mòbil */
 #lb-footer-mobile { display:none; }
@@ -189,7 +195,6 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   #footer-grid a { font-size:11px; color:#888; text-decoration:none; letter-spacing:.05em; }
 
   main { padding-left:16px; padding-right:16px; }
-  .grid { grid-template-columns:repeat(2,1fr); }
 
   /* FIX mòbil: lightbox com a scroll vertical */
   #lightbox {
