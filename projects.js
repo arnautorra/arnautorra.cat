@@ -42,7 +42,7 @@ const PROJECTS = [
   },
    {
     slug: 'oficines-consell-de-cent',
-    title: 'Oficines Consell de Cent', studio: 'Bogom Arquitectura',
+    title: 'Oficines Consell de Cent', studio: 'Marc Escoda',
     cover: 'projectes/2610_OficinesConsellDeCent/OficinesConselldeCent-00.jpg',
     photos: [
       'projectes/2610_OficinesConsellDeCent/OficinesConselldeCent-01.jpg',
