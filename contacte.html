@@ -7,128 +7,128 @@
 <link rel="stylesheet" href="style.css">
 <style>
   /* ── Layout contacte ── */
-  .contacte-wrap {
-    position: fixed;
-    top: var(--header-h); left: 0; right: 0; bottom: 0;
-    display: flex;
-    align-items: stretch;
-  }
-
-  .contacte-foto {
-    flex: 0 0 55%;
-    overflow: hidden;
-    padding: 145px 0 145px 48px;
-  }
-  .contacte-foto img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: right center;
-    display: block;
-  }
-
-  .contacte-text {
-    flex: 0 0 45%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 60px;
-    gap: 32px;
-  }
-
-  .contacte-text p {
-    font-size: 13px;
-    line-height: 1.85;
-    color: #444;
-    font-weight: 300;
-    max-width: 380px;
-  }
-
-  .contacte-correu {
-    font-size: 11px;
-    letter-spacing: .1em;
-    text-transform: lowercase;
-    color: var(--fg);
-    text-decoration: none;
-    border-bottom: none;
-    padding-bottom: 3px;
-    display: inline-block;
-    transition: border-color .2s;
-  }
-  .contacte-correu:hover { border-color: #111; }
-
-  /* ── Mòbil ── */
-  @media (hover:none) {
-    body, html { overflow: auto; height: auto; }
-
     .contacte-wrap {
-      position: static;
-      flex-direction: column;
-      padding: 0 0 48px;
-      gap: 0;
-    }
-
-    .contacte-foto {
-      flex: none;
-      width: 100%;
-      height: 75vw;
-      padding: 0 16px;
-    }
-    .contacte-foto img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .contacte-text {
-      flex: none;
-      padding: 32px 20px 0;
-    }
-
-    .contacte-correu {
-      text-transform: lowercase;
-      border-bottom: none;
-    }
-  }
-</style>
-</head>
-<body>
-
-<div id="cursor"></div>
-
-<header id="header-grid">
-  <a class="h-left" href="/">Projectes</a>
-  <a class="h-mid" href="/">Arnau Torra</a>
-  <a class="h-right" href="/contacte.html">CONTACTE</a>
-</header>
-
-<main>
-  <div class="contacte-wrap">
-    <div class="contacte-foto">
-      <img src="projectes/2505_CriptaGuell/09.jpg" alt="Arnau Torra">
-    </div>
-    <div class="contacte-text">
-      <p>
-        Hola, soc l'Arnau Torra Bacardit.<br><br>
-        Soc arquitecte i fotògraf, nascut a Solsona el 2000 i establert a Barcelona. Vaig estudiar arquitectura a l'ETSAB i el màster habilitant a l'ETSAV, graduant-me el 2025.<br><br>
-        Des dels inicis dels estudis sempre m'ha interessat la representació dels projectes: les visualitzacions, les maquetes, les imatges, i especialment la vessant de la fotografia. Un interès que, treballant en despatxos d'arquitectura, he anat enfocant fins a fer-ne una dedicació professional.<br><br>
-        Si tens un projecte en ment, escriu-me.
-      </p>
-      <a class="contacte-correu" href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
-    </div>
-  </div>
-</main>
-
-<script>
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left    = e.clientX + 'px';
-    cursor.style.top     = e.clientY + 'px';
-    cursor.style.opacity = '1';
-  });
-  document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
-  document.querySelectorAll('a').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
-</script>
-</body>
-</html>
+        position: fixed;
+            top: var(--header-h); left: 0; right: 0; bottom: 0;
+                display: flex;
+                    align-items: stretch;
+                      }
+                      
+                        .contacte-foto {
+                            flex: 0 0 55%;
+                                overflow: hidden;
+                                    padding: 145px 0 145px 48px;
+                                      }
+                                        .contacte-foto img {
+                                            width: 100%; height: 100%;
+                                                object-fit: cover; object-position: right center;
+                                                    display: block;
+                                                      }
+                                                      
+                                                        .contacte-text {
+                                                            flex: 0 0 45%;
+                                                                display: flex;
+                                                                    flex-direction: column;
+                                                                        justify-content: center;
+                                                                            padding: 0 60px;
+                                                                                gap: 32px;
+                                                                                  }
+                                                                                  
+                                                                                    .contacte-text p {
+                                                                                        font-size: 13px;
+                                                                                            line-height: 1.85;
+                                                                                                color: #444;
+                                                                                                    font-weight: 300;
+                                                                                                        max-width: 380px;
+                                                                                                          }
+                                                                                                          
+                                                                                                            .contacte-correu {
+                                                                                                                font-size: 11px;
+                                                                                                                    letter-spacing: .1em;
+                                                                                                                        text-transform: lowercase;
+                                                                                                                            color: var(--fg);
+                                                                                                                                text-decoration: none;
+                                                                                                                                    border-bottom: none;
+                                                                                                                                        padding-bottom: 3px;
+                                                                                                                                            display: inline-block;
+                                                                                                                                                transition: border-color .2s;
+                                                                                                                                                  }
+                                                                                                                                                    .contacte-correu:hover { border-color: #111; }
+                                                                                                                                                    
+                                                                                                                                                      /* ── Mòbil ── */
+                                                                                                                                                        @media (hover:none) {
+                                                                                                                                                            body, html { overflow: auto; height: auto; }
+                                                                                                                                                            
+                                                                                                                                                                .contacte-wrap {
+                                                                                                                                                                      position: static;
+                                                                                                                                                                            flex-direction: column;
+                                                                                                                                                                                  padding: 0 0 48px;
+                                                                                                                                                                                        gap: 0;
+                                                                                                                                                                                            }
+                                                                                                                                                                                            
+                                                                                                                                                                                                .contacte-foto {
+                                                                                                                                                                                                      flex: none;
+                                                                                                                                                                                                            width: 100%;
+                                                                                                                                                                                                                  height: 75vw;
+                                                                                                                                                                                                                        padding: 0 16px;
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                .contacte-foto img {
+                                                                                                                                                                                                                                      width: 100%;
+                                                                                                                                                                                                                                            height: 100%;
+                                                                                                                                                                                                                                                  object-fit: cover;
+                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                          .contacte-text {
+                                                                                                                                                                                                                                                                flex: none;
+                                                                                                                                                                                                                                                                      padding: 32px 20px 0;
+                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                              .contacte-correu {
+                                                                                                                                                                                                                                                                                    text-transform: lowercase;
+                                                                                                                                                                                                                                                                                          border-bottom: none;
+                                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                </style>
+                                                                                                                                                                                                                                                                                                </head>
+                                                                                                                                                                                                                                                                                                <body>
+                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                <div id="cursor"></div>
+                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                <header id="header-grid">
+                                                                                                                                                                                                                                                                                                  <a class="h-left" href="/">Projectes</a>
+                                                                                                                                                                                                                                                                                                    <a class="h-mid" href="/">Arnau Torra</a>
+                                                                                                                                                                                                                                                                                                      <a class="h-right" href="/contacte.html">CONTACTE</a>
+                                                                                                                                                                                                                                                                                                      </header>
+                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                      <main>
+                                                                                                                                                                                                                                                                                                        <div class="contacte-wrap">
+                                                                                                                                                                                                                                                                                                            <div class="contacte-foto">
+                                                                                                                                                                                                                                                                                                                  <img src="projectes/2505_CriptaGuell/09.jpg" alt="Arnau Torra">
+                                                                                                                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                                                                                                                          <div class="contacte-text">
+                                                                                                                                                                                                                                                                                                                                <p>
+                                                                                                                                                                                                                                                                                                                                        Hola, soc l'Arnau Torra Bacardit.<br><br>
+                                                                                                                                                                                                                                                                                                                                                Soc arquitecte i fotògraf, nascut a Solsona el 2000 i establert a Barcelona. Vaig estudiar arquitectura a l'ETSAB i el màster habilitant a l'ETSAV, graduant-me el 2025.<br><br>
+                                                                                                                                                                                                                                                                                                                                                        Des dels inicis dels estudis sempre m'ha interessat la representació dels projectes: les visualitzacions, les maquetes, les imatges, i especialment la vessant de la fotografia. Un interès que, treballant en despatxos d'arquitectura, he anat enfocant fins a fer-ne una dedicació professional.<br><br>
+                                                                                                                                                                                                                                                                                                                                                                Si tens un projecte en ment, escriu-me.
+                                                                                                                                                                                                                                                                                                                                                                      </p>
+                                                                                                                                                                                                                                                                                                                                                                            <a class="contacte-correu" href="mailto:info.arnautorra@gmail.com">info.arnautorra@gmail.com</a>
+                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                                                                  </main>
+                                                                                                                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                  <script>
+                                                                                                                                                                                                                                                                                                                                                                                    const cursor = document.getElementById('cursor');
+                                                                                                                                                                                                                                                                                                                                                                                      document.addEventListener('mousemove', e => {
+                                                                                                                                                                                                                                                                                                                                                                                          cursor.style.left    = e.clientX + 'px';
+                                                                                                                                                                                                                                                                                                                                                                                              cursor.style.top     = e.clientY + 'px';
+                                                                                                                                                                                                                                                                                                                                                                                                  cursor.style.opacity = '1';
+                                                                                                                                                                                                                                                                                                                                                                                                    });
+                                                                                                                                                                                                                                                                                                                                                                                                      document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+                                                                                                                                                                                                                                                                                                                                                                                                        document.querySelectorAll('a').forEach(el => {
+                                                                                                                                                                                                                                                                                                                                                                                                            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                                                                                                                                                                                                                                                                                                                                                                                                                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                                                                                                                                                                                                                                                                                                                                                                                                                  });
+                                                                                                                                                                                                                                                                                                                                                                                                                  </script>
+                                                                                                                                                                                                                                                                                                                                                                                                                  </body>
+                                                                                                                                                                                                                                                                                                                                                                                                                  </html>>
