@@ -40,6 +40,27 @@ const PROJECTS = [
       'projectes/2510_Parcsijardins/Entenca-10.jpg',
     ]
   },
+   {
+    slug: 'oficines-consell-de-cent',
+    title: 'Oficines Consell de Cent', studio: 'Bogom Arquitectura',
+    cover: 'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-00.jpg',
+    photos: [
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-01.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-02.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-03.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-04.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-05.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-06.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-07.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-08.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-09.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-10.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-11.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-12.jpg',
+      'projectes/2510_OficinesConsellDeCent/OficinesConselldeCent-13.jpg',
+      
+    ]
+  },
   {
     slug: 'districte-firal-de-bolonia',
     title: 'Districte Firal de Bolonia', studio: 'Kenzo Tange',
