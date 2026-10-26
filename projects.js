@@ -121,23 +121,7 @@ const PROJECTS = [
       'projectes/2502_IglesiaAutopistaSol/09.jpg',
     ]
   },
-  {
-    slug: 'lisboa',
-    title: 'Lisboa', studio: ' ',
-    cover: 'projectes/2407_Lisboa/portada.jpg',
-    photos: [
-      'projectes/2407_Lisboa/01.jpg',
-      'projectes/2407_Lisboa/02.jpg',
-      'projectes/2407_Lisboa/03.jpg',
-      'projectes/2407_Lisboa/04.jpg',
-      'projectes/2407_Lisboa/05.jpg',
-      'projectes/2407_Lisboa/06.jpg',
-      'projectes/2407_Lisboa/07.jpg',
-      'projectes/2407_Lisboa/08.jpg',
-      'projectes/2407_Lisboa/09.jpg',
-      'projectes/2407_Lisboa/10.jpg',
-    ]
-  },
+  
   {
     slug: 'escola-pere-lliscart',
     title: 'Escola Pere Lliscart', studio: 'Bogom Arquitectura',
