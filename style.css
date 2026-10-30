@@ -16,12 +16,12 @@ html, body { background: var(--bg); color: var(--fg); font-family: var(--font); 
 
 /* ── Cursor ── */
 #cursor {
-  position: fixed; width: 32px; height: 32px;
+  position: fixed; width: 24px; height: 24px;
   background: url("cursor.svg") center / contain no-repeat;
   pointer-events: none; transform: translate(-50%,-50%);
   transition: width .2s, height .2s; z-index: 9999;
 }
-#cursor.hover  { width: 44px; height: 44px; }
+#cursor.hover  { width: 32px; height: 32px; }
 #cursor.hidden { opacity: 0; }
 
 /* ── Tipografia compartida ── */
