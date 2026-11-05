@@ -1,4 +1,7 @@
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* El cursor natiu s'amaga només quan el JS ha activat el cursor personalitzat */
+html.has-cursor, html.has-cursor *, html.has-cursor *::before, html.has-cursor *::after { cursor: none !important; }
 
 :root {
   --bg: rgb(249,249,249);
@@ -14,14 +17,25 @@
 
 html, body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 13px; min-height: 100vh; }
 
+/* Focus visible per a navegació amb teclat */
+:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+
 /* ── Cursor ── */
 #cursor {
-  position: fixed; width: 12px; height: 12px;
-  background: #111; border-radius: 50%;
+  position: fixed; width: 22px; height: 22px;
+  border: 4px solid #111; border-radius: 50%;
   pointer-events: none; transform: translate(-50%,-50%);
-  transition: width .2s, height .2s; z-index: 9999;
+  z-index: 9999;
+  opacity: 0; /* apareix quan es mou el ratolí */
 }
-#cursor.hover  { width: 18px; height: 18px; }
+#cursor::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 8px; height: 8px;
+  background: #111; border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s;
+}
+#cursor.hover::after { width: 12px; height: 12px; }
 #cursor.hidden { opacity: 0; }
 
 /* ── Tipografia compartida ── */
@@ -57,6 +71,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 }
 
 .project-cell {
+  display: block; color: inherit; text-decoration: none;
   position: relative; overflow: hidden; background: #e0e0e0;
   opacity: 0; animation: fadeUp .5s cubic-bezier(.25,.1,.25,1) forwards;
   cursor: pointer;
@@ -70,7 +85,8 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 }
 
 .project-cell img { width:100%; height:100%; object-fit:cover; display:block; transition:filter .4s; }
-.project-cell:hover .project-cell-img-wrap img { filter:grayscale(100%) brightness(1.15); }
+.project-cell:hover .project-cell-img-wrap img,
+.project-cell:focus-visible .project-cell-img-wrap img { filter:grayscale(100%) brightness(1.15); }
 
 /* Gradient fosc a la part inferior, només en hover */
 .project-overlay {
@@ -78,7 +94,8 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 50%);
   opacity: 0; transition: opacity .35s; pointer-events:none;
 }
-.project-cell:hover .project-overlay { opacity: 1; }
+.project-cell:hover .project-overlay,
+.project-cell:focus-visible .project-overlay { opacity: 1; }
 
 /* Info sobre la imatge, a baix */
 .project-info {
@@ -88,7 +105,8 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   opacity: 0; transition: opacity .3s;
   z-index: 2;
 }
-.project-cell:hover .project-info { opacity: 1; }
+.project-cell:hover .project-info,
+.project-cell:focus-visible .project-info { opacity: 1; }
 .project-title { font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; color:#fff; }
 .project-sub   { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,.7); }
 
@@ -108,19 +126,18 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   padding:0 var(--pad-header); z-index:20; background:var(--bg);
 }
 
-/* FIX: botó de tornar enrere */
+/* Botó de tornar enrere */
 #lb-back {
   background: none; border: none; font-size: 18px; color: var(--fg);
   line-height: 1; padding: 4px 8px 4px 0; display: flex; align-items: center;
   flex-shrink: 0;
 }
-#lb-back-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
 
 #lb-info { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg); min-width:160px; display:flex; align-items:center; gap:4px; }
 #lb-info-texts { display:flex; align-items:center; gap:6px; }
 #lb-info-title { font-weight:500; }
-#lb-info-sub   { color:#888; font-size:10px; }
-#lb-info-sep   { color:#ccc; font-size:10px; }
+#lb-info-sub   { color:#666; font-size:10px; }
+#lb-info-sep   { color:#999; font-size:10px; }
 
 /* Stage */
 #lb-stage {
@@ -141,16 +158,15 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 #lb-left-zone, #lb-right-zone { position:absolute; top:0; bottom:0; width:50%; z-index:10; }
 #lb-left-zone { left:0; } #lb-right-zone { right:0; }
 
-/* FIX: Thumbnails centrades, entre ✕ i comptador */
+/* Thumbnails centrades, entre ✕ i comptador */
 #lb-footer {
   position:absolute; bottom:0; left:0; right:0; height:var(--footer-h);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 var(--pad-header); z-index:20; background:var(--bg);
 }
 #lb-close { font-size: 22px; color: var(--fg); background: none; border: none; line-height: 1; padding: 4px; flex-shrink:0; }
-#lb-counter { font-size: 13px; letter-spacing: .08em; color: #999; flex-shrink:0; }
+#lb-counter { font-size: 13px; letter-spacing: .08em; color: #666; flex-shrink:0; }
 
-/* FIX: thumbnails ara dins del footer, centrades */
 #lb-thumbs {
   flex: 1;
   display:flex; align-items:center; justify-content:center;
@@ -160,7 +176,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 }
 #lb-thumbs::-webkit-scrollbar { display:none; }
 
-/* FIX: miniatures mantenen proporció original */
+/* Miniatures mantenen proporció original */
 .lb-thumb {
   flex-shrink:0;
   height:40px;
@@ -169,9 +185,6 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   opacity:.4; transition:opacity .2s;
 }
 .lb-thumb:hover, .lb-thumb.active { opacity:1; }
-
-/* Zona thumbnails (ordinador) — ara fusionada al footer */
-#lb-thumbs-wrap { display:none; }
 
 /* Footer projecte mòbil */
 #lb-footer-mobile { display:none; }
@@ -183,7 +196,6 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
 }
 #lb-cursor.show { display:block; }
 
-/* FIX: fletxa més gran */
 #lb-cursor svg { width:42px; height:42px; fill:#111; stroke:none; }
 
 /* ── MÒBIL ── */
@@ -199,11 +211,11 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
     display:flex; justify-content:space-between;
     padding:20px 16px 32px;
   }
-  #footer-grid a { font-size:11px; color:#888; text-decoration:none; letter-spacing:.05em; }
+  #footer-grid a { font-size:11px; color:#666; text-decoration:none; letter-spacing:.05em; }
 
   main { padding-left:16px; padding-right:16px; }
 
-  /* FIX mòbil: lightbox com a scroll vertical */
+  /* Lightbox com a scroll vertical */
   #lightbox {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -238,7 +250,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
   #lb-info-sep { display:none !important; }
   #lb-back { display:flex; }
 
-  /* FIX mòbil: stage és un flux vertical de totes les fotos */
+  /* Stage: flux vertical de totes les fotos */
   #lb-stage {
     position:relative; top:auto; bottom:auto; left:auto; right:auto;
     height:auto; overflow:visible;
@@ -247,7 +259,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
     flex:1;
   }
 
-  /* FIX mòbil: cada foto ocupa l'amplada completa, alçada automàtica */
+  /* Cada foto ocupa l'amplada completa, alçada automàtica */
   .lb-slide {
     position:relative;
     width:100% !important;
@@ -272,7 +284,7 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
     padding:16px 16px 32px;
     flex-shrink: 0;
   }
-  #lb-footer-mobile a { font-size:11px; color:#888; text-decoration:none; letter-spacing:.05em; }
+  #lb-footer-mobile a { font-size:11px; color:#666; text-decoration:none; letter-spacing:.05em; }
   #lb-close-mobile { font-size:16px; color:var(--fg); background:none; border:none; line-height:1; padding:4px; }
   #lb-scroll-top {
     position: absolute; left: 50%; transform: translateX(-50%);
@@ -285,13 +297,10 @@ main { padding: calc(var(--header-h) + var(--gap)) var(--pad-grid) var(--pad-gri
     user-select: none;
   }
 
-  /* Permet scroll vertical sobre les imatges del lightbox */
+  /* Scroll vertical i zoom amb pessic sobre les imatges del lightbox */
   #lb-stage img, #lb-stage, #lightbox {
-    touch-action: pan-y;
+    touch-action: pan-y pinch-zoom;
   }
-
-  /* Oculta el botó de back en mòbil (ja hi ha close) */
-  #lb-back-label { display:none; }
 }
 
 /* ── Responsive ordinador ── */

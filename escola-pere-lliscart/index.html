@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<base href="/">
+<title>Escola Pere Lliscart — Bogom Arquitectura | Arnau Torra</title>
+<meta name="description" content="Escola Pere Lliscart, de Bogom Arquitectura. Fotografia d&#x27;arquitectura per Arnau Torra.">
+<link rel="canonical" href="https://arnautorra.cat/escola-pere-lliscart/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Arnau Torra">
+<meta property="og:title" content="Escola Pere Lliscart — Bogom Arquitectura | Arnau Torra">
+<meta property="og:description" content="Escola Pere Lliscart, de Bogom Arquitectura. Fotografia d&#x27;arquitectura per Arnau Torra.">
+<meta property="og:url" content="https://arnautorra.cat/escola-pere-lliscart/">
+<meta property="og:image" content="https://arnautorra.cat/projectes/2602_PereLliscart/PereLliscart-01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="lb-cursor"><svg id="lb-arrow" viewBox="0 0 36 36"></svg></div>
+
+<!-- HEADER GRID -->
+<header id="header-grid">
+  <a class="h-left" href="/">Projectes</a>
+  <a class="h-mid" href="/">Arnau Torra</a>
+  <a class="h-right" href="/contacte.html">CONTACTE</a>
+</header>
+
+<main id="projectes"><div class="grid" id="grid"></div></main>
+
+<!-- FOOTER GRID (mòbil) — després del main per aparèixer a baix del grid -->
+<div id="footer-grid">
+  <a href="/contacte.html">CONTACTE</a>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+
+  <!-- HEADER PROJECTE -->
+  <div id="lb-header">
+    <div id="lb-info">
+      <button id="lb-back">‹</button>
+      <div id="lb-info-texts">
+        <span id="lb-info-title"></span>
+        <span id="lb-info-sep">—</span>
+        <span id="lb-info-sub"></span>
+      </div>
+    </div>
+    <a class="h-mid" id="lb-home" href="/">Arnau Torra</a>
+    <a class="h-right" href="/contacte.html">CONTACTE</a>
+  </div>
+
+  <!-- STAGE -->
+  <div id="lb-stage">
+    <div id="lb-left-zone"></div>
+    <div id="lb-right-zone"></div>
+    <img class="lb-slide" id="lb-img-a" src="" alt="">
+    <img class="lb-slide" id="lb-img-b" src="" alt="">
+  </div>
+
+  <!-- FOOTER amb thumbnails centrades entre ✕ i comptador -->
+  <div id="lb-footer">
+    <button id="lb-close">✕</button>
+    <div id="lb-thumbs"></div>
+    <div id="lb-counter"></div>
+  </div>
+
+  <!-- FOOTER PROJECTE MÒBIL -->
+  <div id="lb-footer-mobile">
+    <button id="lb-close-mobile">✕</button>
+    <button id="lb-scroll-top">↑</button>
+    <a href="/contacte.html">CONTACTE</a>
+  </div>
+
+</div>
+
+<script>
+  const redirect = sessionStorage.getItem('redirect');
+  if (redirect) {
+    sessionStorage.removeItem('redirect');
+    history.replaceState(null, '', redirect);
+  }
+</script>
+<script src="projects.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

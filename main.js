@@ -1,10 +1,12 @@
 // ── Grid ──
+// Les targetes són enllaços reals (<a href>): es poden fer servir amb teclat,
+// i Google pot seguir-los fins a la pàgina de cada projecte.
 const gridEl = document.getElementById('grid');
 PROJECTS.forEach((p, i) => {
-  const c = document.createElement('div');
+  const c = document.createElement('a');
   c.className = 'project-cell';
+  c.href = `/${p.slug}/`;
   c.style.animationDelay = `${i * 0.06}s`;
-  // FIX: estructura amb project-cell-img-wrap per evitar que overflow:hidden talli la info
   c.innerHTML = `
     <div class="project-cell-img-wrap">
       <img src="${p.cover}" alt="${p.title}" loading="lazy">
@@ -14,7 +16,12 @@ PROJECTS.forEach((p, i) => {
         <span class="project-sub">${p.studio}</span>
       </div>
     </div>`;
-  c.addEventListener('click', () => openLightbox(i, 0));
+  c.addEventListener('click', e => {
+    // Ctrl/Cmd/Maj + clic o clic del mig: deixem que el navegador obri l'enllaç
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    openLightbox(i, 0);
+  });
   gridEl.appendChild(c);
 });
 
@@ -27,6 +34,7 @@ const lbRight   = document.getElementById('lb-right-zone');
 const lbCounter = document.getElementById('lb-counter');
 const lbTitle   = document.getElementById('lb-info-title');
 const lbSub     = document.getElementById('lb-info-sub');
+const lbSep     = document.getElementById('lb-info-sep');
 const lbStage   = document.getElementById('lb-stage');
 const lbCursor  = document.getElementById('lb-cursor');
 const lbArrow   = document.getElementById('lb-arrow');
@@ -34,7 +42,14 @@ const lbThumbs  = document.getElementById('lb-thumbs');
 const cursor    = document.getElementById('cursor');
 const imgs      = [document.getElementById('lb-img-a'), document.getElementById('lb-img-b')];
 
+// Etiquetes per a lectors de pantalla (els botons només tenen un símbol)
+document.getElementById('lb-back').setAttribute('aria-label', 'Tornar als projectes');
+lbClose.setAttribute('aria-label', 'Tancar');
+document.getElementById('lb-close-mobile').setAttribute('aria-label', 'Tancar');
+document.getElementById('lb-scroll-top').setAttribute('aria-label', 'Tornar a dalt');
+
 let activeSlot = 0, curProj = 0, curPhoto = 0, busy = false;
+let overStage = false;
 const DURATION = 480;
 
 const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
@@ -44,7 +59,9 @@ function setMeta() {
   const p = PROJECTS[curProj];
   lbTitle.textContent   = p.title.toUpperCase();
   lbSub.textContent     = p.studio ? p.studio.toUpperCase() : '';
+  lbSep.style.display   = p.studio ? '' : 'none';   // sense estudi, no mostrem el guió
   lbCounter.textContent = `${curPhoto + 1} / ${p.photos.length}`;
+  imgs[activeSlot].alt  = `${p.title} — foto ${curPhoto + 1}`;
   updateThumbs();
 }
 
@@ -55,7 +72,7 @@ function renderThumbs() {
     const img = document.createElement('img');
     img.className = 'lb-thumb' + (i === curPhoto ? ' active' : '');
     img.src = src;
-    img.alt = '';
+    img.alt = `${PROJECTS[curProj].title} — miniatura ${i + 1}`;
     img.addEventListener('click', () => {
       if (i === curPhoto) return;
       navigateWithZoomReset(i > curPhoto ? 1 : -1, i);
@@ -88,11 +105,13 @@ function preloadNext(dir) {
 }
 
 // ── Lightbox open / close ──
-function openLightbox(pi, ph) {
+// push = false quan l'obertura/tancament ve del botó enrere del navegador
+// o de la càrrega inicial (així no afegim entrades repetides a l'historial).
+function openLightbox(pi, ph, push = true) {
   curProj = pi; curPhoto = ph; busy = false;
+  resetZoom();
 
   if (isTouchDevice()) {
-    // Mostra els slots ocults (el CSS els amaga, però cal que existeixin)
     lb.querySelectorAll('.lb-mobile-img').forEach(el => el.remove());
     const stage = document.getElementById('lb-stage');
     PROJECTS[curProj].photos.forEach(src => {
@@ -116,31 +135,24 @@ function openLightbox(pi, ph) {
   setMeta();
   renderThumbs();
   lb.classList.add('open');
-  if (!isTouchDevice()) {
-    document.body.style.overflow = 'hidden';
-  }
-  // FIX mòbil: reset scroll al top
-  if (isTouchDevice()) {
-    lb.scrollTop = 0;
-  }
+  if (!isTouchDevice()) document.body.style.overflow = 'hidden';
+  if (isTouchDevice()) lb.scrollTop = 0;
 
-  if (!isTouchDevice()) {
-    history.pushState({ slug: PROJECTS[curProj].slug }, '', `/${PROJECTS[curProj].slug}`);
-  }
+  // Ara també en mòbil: la URL canvia i el botó enrere tanca el projecte
+  if (push) history.pushState({ slug: PROJECTS[curProj].slug }, '', `/${PROJECTS[curProj].slug}/`);
 }
 
-function closeLightbox() {
+function closeLightbox(push = true) {
+  resetZoom();
   lb.classList.remove('open');
-  if (!isTouchDevice()) {
-    document.body.style.overflow = '';
-  }
+  if (!isTouchDevice()) document.body.style.overflow = '';
   lbCursor.classList.remove('show');
   overStage = false;
   cursor.classList.remove('hidden');
   cursor.style.opacity = '1';
   busy = false;
   lb.querySelectorAll('.lb-mobile-img').forEach(el => el.remove());
-  if (!isTouchDevice()) history.pushState({}, '', '/');
+  if (push) history.pushState({}, '', '/');
 }
 
 // ── Navigate ──
@@ -150,7 +162,9 @@ function navigate(dir, targetIdx = null) {
 
   const photos      = PROJECTS[curProj].photos;
   const nextPhoto   = targetIdx !== null ? targetIdx : (curPhoto + dir + photos.length) % photos.length;
-  const resolvedDir = nextPhoto > curPhoto ? 1 : -1;
+  // Només una miniatura decideix la direcció segons l'índex; amb les fletxes
+  // fem servir sempre dir (així l'animació no s'inverteix quan dóna la volta).
+  const resolvedDir = targetIdx !== null ? (nextPhoto > curPhoto ? 1 : -1) : dir;
   const current     = imgs[activeSlot];
   const next        = imgs[1 - activeSlot];
   const incomingX   = resolvedDir === 1 ? '100vw' : '-100vw';
@@ -238,10 +252,9 @@ window.addEventListener('mousemove', e => {
 window.addEventListener('mouseup', () => { isPanning = false; });
 
 // ── Listeners ──
-lbClose.addEventListener('click', closeLightbox);
-document.getElementById('lb-close-mobile').addEventListener('click', closeLightbox);
+lbClose.addEventListener('click', () => closeLightbox());
+document.getElementById('lb-close-mobile').addEventListener('click', () => closeLightbox());
 
-// FIX: lb-home i lb-back tanquen sense navegar
 lbHome.addEventListener('click', e => { e.preventDefault(); closeLightbox(); });
 document.getElementById('lb-back').addEventListener('click', e => { e.preventDefault(); closeLightbox(); });
 
@@ -254,45 +267,27 @@ document.getElementById('lb-scroll-top').addEventListener('click', () => {
 
 document.addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;
-  if (e.key === 'Escape')     { resetZoom(); closeLightbox(); }
+  if (e.key === 'Escape')     closeLightbox();
   if (e.key === 'ArrowLeft')  navigateWithZoomReset(-1);
   if (e.key === 'ArrowRight') navigateWithZoomReset(1);
 });
 
-// FIX mòbil: swipe només si el desplaçament horitzontal supera el vertical (no interfereix amb scroll)
-let tx = 0, ty = 0;
-lb.addEventListener('touchstart', e => {
-  tx = e.touches[0].clientX;
-  ty = e.touches[0].clientY;
-}, { passive: true });
-
-lb.addEventListener('touchend', e => {
-  // En mòbil no fem res — l'scroll vertical és el comportament principal
-  // Swipe horitzontal desactivat per no interferir amb el scroll
-});
-
 // ── Routing ──
+function slugFromPath() {
+  return location.pathname.replace(/^\//, '').replace(/\/$/, '');
+}
+
+// Botó enrere/endavant del navegador: obre o tanca segons la URL actual
 window.addEventListener('popstate', () => {
-  if (lb.classList.contains('open')) {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    lbCursor.classList.remove('show');
-    overStage = false;
-    cursor.classList.remove('hidden');
-    cursor.style.opacity = '1';
-    busy = false;
+  const idx = PROJECTS.findIndex(p => p.slug === slugFromPath());
+  if (idx !== -1) {
+    if (!lb.classList.contains('open') || curProj !== idx) openLightbox(idx, 0, false);
+  } else if (lb.classList.contains('open')) {
+    closeLightbox(false);
   }
 });
 
-const initSlug = location.pathname.replace(/^\//, '').replace(/\/$/, '');
-if (initSlug) {
-  const idx = PROJECTS.findIndex(p => p.slug === initSlug);
-  if (idx !== -1) openLightbox(idx, 0);
-}
-
 // ── Arrow cursor ──
-let overStage = false;
-
 lbStage.addEventListener('mousemove', e => {
   lbCursor.style.left = e.clientX + 'px';
   lbCursor.style.top  = e.clientY + 'px';
@@ -315,6 +310,8 @@ lbStage.addEventListener('mouseleave', () => {
 
 // ── Global cursor ──
 document.addEventListener('mousemove', e => {
+  // Amaguem el cursor natiu només quan el personalitzat ja funciona
+  if (!isTouchDevice()) document.documentElement.classList.add('has-cursor');
   cursor.style.left = e.clientX + 'px';
   cursor.style.top  = e.clientY + 'px';
   if (!overStage) cursor.style.opacity = '1';
@@ -329,3 +326,7 @@ document.querySelectorAll('a, button, .project-cell').forEach(el => {
 // ── Protecció imatges ──
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
+// ── Càrrega inicial: si la URL és d'un projecte, l'obrim ──
+const initIdx = PROJECTS.findIndex(p => p.slug === slugFromPath());
+if (initIdx !== -1) openLightbox(initIdx, 0, false);
