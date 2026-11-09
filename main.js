@@ -1,3 +1,7 @@
+// Les rutes de projects.js són relatives: les fem absolutes perquè no es trenquin quan la URL és /projecte/
+const abs = s => /^(\/|https?:)/.test(s) ? s : "/" + s;
+PROJECTS.forEach(p => { p.cover = abs(p.cover); p.photos = p.photos.map(abs); });
+
 // ── Grid ──
 // Les targetes són enllaços reals (<a href>): es poden fer servir amb teclat,
 // i Google pot seguir-los fins a la pàgina de cada projecte.
