@@ -77,6 +77,19 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'pluja-fiorentina',
+    title: 'Pluja Fiorentina', studio: '',
+    cover: 'projectes/2502_PlujaFlorentina/portada.jpg',
+    photos: [
+      'projectes/2502_PlujaFlorentina/fotos/01.jpg',
+      'projectes/2502_PlujaFlorentina/fotos/02.jpg',
+      'projectes/2502_PlujaFlorentina/fotos/03.jpg',
+      'projectes/2502_PlujaFlorentina/fotos/04.jpg',
+      'projectes/2502_PlujaFlorentina/fotos/05.jpg',
+      'projectes/2502_PlujaFlorentina/fotos/06.jpg',
+    ]
+  },
+  {
     slug: 'esglesia-soses',
     title: 'Sant Llorenç de Soses', studio: 'Feu Godoy Arquitectura',
     cover: 'projectes/2607_Soses/portada.jpg',
@@ -96,19 +109,6 @@ const PROJECTS = [
       'projectes/2607_Soses/fotos/Soses-14.jpg',
       'projectes/2607_Soses/fotos/Soses-15.jpg',
       'projectes/2607_Soses/fotos/Soses-16.jpg',
-    ]
-  },
-  {
-    slug: 'pluja-fiorentina',
-    title: 'Pluja Fiorentina', studio: '',
-    cover: 'projectes/2502_PlujaFlorentina/portada.jpg',
-    photos: [
-      'projectes/2502_PlujaFlorentina/fotos/01.jpg',
-      'projectes/2502_PlujaFlorentina/fotos/02.jpg',
-      'projectes/2502_PlujaFlorentina/fotos/03.jpg',
-      'projectes/2502_PlujaFlorentina/fotos/04.jpg',
-      'projectes/2502_PlujaFlorentina/fotos/05.jpg',
-      'projectes/2502_PlujaFlorentina/fotos/06.jpg',
     ]
   },
   {
