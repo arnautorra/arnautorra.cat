@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Genera una pàgina real per a cada projecte (cripta-guell/index.html, etc.),
+Genera una pàgina real dins de cada projecte (projectes/2505_CriptaGuell/index.html, etc.),
 amb el seu títol, descripció i imatge de previsualització (Open Graph),
 més sitemap.xml i robots.txt.
 
@@ -39,14 +39,15 @@ def read_projects():
 
     projects = []
     for block in re.split(r"\n\s*\{\s*\n", src)[1:]:
-        slug = val(block, "slug")
-        if not slug:
+        cover = val(block, "cover")
+        if not cover:
             continue
         projects.append({
-            "slug": slug,
+            "slug": val(block, "slug"),                 # només per detectar carpetes antigues
+            "folder": cover.rsplit("/", 1)[0],          # p. ex. projectes/2505_CriptaGuell
             "title": val(block, "title"),
             "studio": val(block, "studio"),
-            "cover": val(block, "cover"),
+            "cover": cover,
         })
     return projects
 
@@ -109,15 +110,15 @@ def main():
     for p in projects:
         title = f"{p['title']} — {p['studio']} | {SITE_NAME}" if p["studio"] else f"{p['title']} | {SITE_NAME}"
         desc = f"{p['title']}" + (f", {de(p['studio'])}" if p["studio"] else "") + ". Fotografia d'arquitectura per Arnau Torra."
-        url = f"{DOMAIN}/{p['slug']}/"
+        url = f"{DOMAIN}/{quote(p['folder'], safe='/')}/"
         block = head_block(title, desc, url, abs_url(p["cover"]))
-        out = ROOT / p["slug"]
-        out.mkdir(exist_ok=True)
+        out = ROOT / p["folder"]
+        out.mkdir(parents=True, exist_ok=True)
         (out / "index.html").write_text(make_page(template, block), encoding="utf-8")
-        print(f"  ✓ {p['slug']}/index.html")
+        print(f"  ✓ {p['folder']}/index.html")
 
     # sitemap.xml
-    urls = [f"{DOMAIN}/", f"{DOMAIN}/contacte.html"] + [f"{DOMAIN}/{p['slug']}/" for p in projects]
+    urls = [f"{DOMAIN}/", f"{DOMAIN}/contacte.html"] + [f"{DOMAIN}/{quote(p['folder'], safe='/')}/" for p in projects]
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sitemap += [f"  <url><loc>{u}</loc></url>" for u in urls]
@@ -128,6 +129,12 @@ def main():
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n", encoding="utf-8")
 
     print(f"\nFet: {len(projects)} pàgines de projecte + sitemap.xml + robots.txt")
+
+    antigues = [p["slug"] for p in projects if p["slug"] and (ROOT / p["slug"] / "index.html").exists()]
+    if antigues:
+        print("\nAquestes carpetes de l'arrel són d'una versió anterior i ja no serveixen; les pots esborrar:")
+        for a in antigues:
+            print(f"  {a}/")
 
 
 if __name__ == "__main__":

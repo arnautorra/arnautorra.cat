@@ -1,3 +1,13 @@
+// Les rutes de projects.js són relatives: les fem absolutes perquè no es trenquin quan la URL és /projecte/
+const abs = s => /^(\/|https?:)/.test(s) ? s : "/" + s;
+PROJECTS.forEach(p => {
+  p.cover  = abs(p.cover);
+  p.photos = p.photos.map(abs);
+  p.path   = p.cover.replace(/[^/]*$/, '');   // /projectes/2505_CriptaGuell/
+  // miniatures: .../fotos/01.jpg -> .../thumbs/01.jpg
+  p.thumbs = p.photos.map(s => s.replace('/fotos/', '/thumbs/').replace(/\.[^./]+$/, '.jpg'));
+});
+
 // ── Grid ──
 // Les targetes són enllaços reals (<a href>): es poden fer servir amb teclat,
 // i Google pot seguir-los fins a la pàgina de cada projecte.
@@ -5,7 +15,7 @@ const gridEl = document.getElementById('grid');
 PROJECTS.forEach((p, i) => {
   const c = document.createElement('a');
   c.className = 'project-cell';
-  c.href = `/${p.slug}/`;
+  c.href = p.path;
   c.style.animationDelay = `${i * 0.06}s`;
   c.innerHTML = `
     <div class="project-cell-img-wrap">
@@ -71,7 +81,7 @@ function renderThumbs() {
   PROJECTS[curProj].photos.forEach((src, i) => {
     const img = document.createElement('img');
     img.className = 'lb-thumb' + (i === curPhoto ? ' active' : '');
-    img.src = src;
+    img.src = PROJECTS[curProj].thumbs[i];
     img.alt = `${PROJECTS[curProj].title} — miniatura ${i + 1}`;
     img.addEventListener('click', () => {
       if (i === curPhoto) return;
@@ -139,7 +149,7 @@ function openLightbox(pi, ph, push = true) {
   if (isTouchDevice()) lb.scrollTop = 0;
 
   // Ara també en mòbil: la URL canvia i el botó enrere tanca el projecte
-  if (push) history.pushState({ slug: PROJECTS[curProj].slug }, '', `/${PROJECTS[curProj].slug}/`);
+  if (push) history.pushState({ path: PROJECTS[curProj].path }, '', PROJECTS[curProj].path);
 }
 
 function closeLightbox(push = true) {
@@ -273,13 +283,15 @@ document.addEventListener('keydown', e => {
 });
 
 // ── Routing ──
-function slugFromPath() {
-  return location.pathname.replace(/^\//, '').replace(/\/$/, '');
+function currentProjectIndex() {
+  let path = decodeURIComponent(location.pathname).replace(/index\.html$/, '');
+  if (!path.endsWith('/')) path += '/';
+  return PROJECTS.findIndex(p => decodeURIComponent(p.path) === path);
 }
 
 // Botó enrere/endavant del navegador: obre o tanca segons la URL actual
 window.addEventListener('popstate', () => {
-  const idx = PROJECTS.findIndex(p => p.slug === slugFromPath());
+  const idx = currentProjectIndex();
   if (idx !== -1) {
     if (!lb.classList.contains('open') || curProj !== idx) openLightbox(idx, 0, false);
   } else if (lb.classList.contains('open')) {
@@ -328,5 +340,5 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
 // ── Càrrega inicial: si la URL és d'un projecte, l'obrim ──
-const initIdx = PROJECTS.findIndex(p => p.slug === slugFromPath());
+const initIdx = currentProjectIndex();
 if (initIdx !== -1) openLightbox(initIdx, 0, false);

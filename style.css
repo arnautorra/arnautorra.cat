@@ -43,6 +43,13 @@ html, body { background: var(--bg); color: var(--fg); font-family: var(--font); 
 .h-mid   { position: absolute; left: 50%; transform: translateX(-50%); font-size: 15px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--fg); white-space: nowrap; }
 .h-right { font-size: 11px; text-align: right; text-decoration: none; color: var(--fg); min-width: 160px; }
 
+/* Enllaços i botons: s'aclareixen en passar-hi per sobre (només amb ratolí) */
+.h-left, .h-mid, .h-right, #lb-back, #lb-close { transition: color .2s; }
+@media (hover:hover) {
+  .h-left:hover, .h-mid:hover, .h-right:hover,
+  #lb-back:hover, #lb-close:hover { color: #888; }
+}
+
 /* ── Header grid ── */
 #header-grid {
   position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
