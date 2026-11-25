@@ -77,6 +77,28 @@ const PROJECTS = [
     ]
   },
   {
+    slug: 'esglesia-soses',
+    title: 'Sant Llorenç de Soses', studio: 'Feu Godoy Arquitectura',
+    cover: 'projectes/2607_Soses/portada.jpg',
+    photos: [
+      'projectes/2607_Soses/fotos/Soses-1.jpg',
+      'projectes/2607_Soses/fotos/Soses-2.jpg',
+      'projectes/2607_Soses/fotos/Soses-4.jpg',
+      'projectes/2607_Soses/fotos/Soses-5.jpg',
+      'projectes/2607_Soses/fotos/Soses-6.jpg',
+      'projectes/2607_Soses/fotos/Soses-7.jpg',
+      'projectes/2607_Soses/fotos/Soses-8.jpg',
+      'projectes/2607_Soses/fotos/Soses-9.jpg',
+      'projectes/2607_Soses/fotos/Soses-10.jpg',
+      'projectes/2607_Soses/fotos/Soses-11.jpg',
+      'projectes/2607_Soses/fotos/Soses-12.jpg',
+      'projectes/2607_Soses/fotos/Soses-13.jpg',
+      'projectes/2607_Soses/fotos/Soses-14.jpg',
+      'projectes/2607_Soses/fotos/Soses-15.jpg',
+      'projectes/2607_Soses/fotos/Soses-16.jpg',
+    ]
+  },
+  {
     slug: 'pluja-fiorentina',
     title: 'Pluja Fiorentina', studio: '',
     cover: 'projectes/2502_PlujaFlorentina/portada.jpg',
@@ -89,7 +111,6 @@ const PROJECTS = [
       'projectes/2502_PlujaFlorentina/fotos/06.jpg',
     ]
   },
-
   {
     slug: 'cripta-guell',
     title: 'Cripta Güell', studio: 'Antoni Gaudí',
