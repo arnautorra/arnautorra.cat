@@ -41,7 +41,7 @@ html, body { background: var(--bg); color: var(--fg); font-family: var(--font); 
 /* ── Tipografia compartida ── */
 .h-left  { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; color: var(--fg); min-width: 160px; }
 .h-mid   { position: absolute; left: 50%; transform: translateX(-50%); font-size: 15px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--fg); white-space: nowrap; }
-.brand-logo { display: block; width: 145px; height: auto; }
+.brand-logo { display: block; width: 160px; height: auto; }
 .h-right { font-size: 11px; text-align: right; text-decoration: none; color: var(--fg); min-width: 160px; }
 
 /* Enllaços i botons: s'aclareixen en passar-hi per sobre (només amb ratolí) */
