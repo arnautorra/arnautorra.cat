@@ -124,7 +124,6 @@ const PROJECTS = [
       'projectes/2505_CriptaGuell/fotos/06.jpg',
       'projectes/2505_CriptaGuell/fotos/07.jpg',
       'projectes/2505_CriptaGuell/fotos/08.jpg',
-      'projectes/2505_CriptaGuell/fotos/09.jpg',
       'projectes/2505_CriptaGuell/fotos/10.jpg',
     ]
   },
